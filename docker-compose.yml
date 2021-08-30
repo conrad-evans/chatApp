@@ -9,15 +9,6 @@ services:
     volumes:
       - /app/node_modules
       - ./app:/app/
-  users:
-    build:
-      context: ./users
-      dockerfile: Dockerfile.dev
-    ports:
-      - 6000:6000
-    volumes:
-      - /users/node_modules
-      - ./users:/app/
   client:
     build:
       context: ./client
