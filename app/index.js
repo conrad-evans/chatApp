@@ -108,16 +108,15 @@ const getUser = (userName) => {
 
 io.on("connection", (socket) => {
   console.log("a user is online");
+
   socket.on("message-sent", function (data) {
-    console.log("typeof", typeof data);
     const { to, from, message } = JSON.parse(data);
-    console.log("to", to);
-    console.log("from", from);
 
     const newData = { message };
-    
-    io.emit(to, JSON.stringify(newData));
-    io.emit(from, JSON.stringify(newData));
+
+    io.emit(to, JSON.stringify(data));
+
+    // io.emit(from, JSON.stringify(newData));
     console.log("working");
   });
 });

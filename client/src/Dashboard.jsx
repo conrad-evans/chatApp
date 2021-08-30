@@ -1,65 +1,44 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-// import Chats from "./Chats";
+import Chats from "./Chats";
+import Messages from "./Messages";
 
 const socket = io("http://localhost:5000");
 
 function Dashboard({ myId }) {
   const [value, setValue] = useState("");
   const [to, setTo] = useState("");
-  // const [activeChat, setActiveChat] = useState(null);
+  const [activeChat, setActiveChat] = useState(null);
   const [loadedChats, setLoadedChats] = useState([]);
+  const [chats, setChats] = useState([]);
 
   useEffect(() => {
     socket.on(myId, function (data) {
-      const newData = JSON.parse(data);
-      console.log(loadedChats);
-      let newChats = [...loadedChats, newData];
-      console.table(newChats);
-      setLoadedChats([...loadedChats, newData]);
+      setLoadedChats((prevChats) => [...prevChats, JSON.parse(data)]);
     });
 
-    return () => {
-      socket.off(myId);
-    };
-  }, []);
+    // return () => {
+    // socket.off(myId);
+    // };
+  }, [myId]);
 
   function onSendMessage(e) {
     e.preventDefault();
-    const chat = { message: value, to, from: myId };
+    const chat = { message: value, to, from: myId, status: "scheduled" };
     socket.emit("message-sent", JSON.stringify(chat));
-    // let newChats = [...loadedChats, chat];
-    // console.log(loadedChats);
-    // console.table(newChats);
-    // setLoadedChats(newChats);
+    const newChats = [...loadedChats, chat];
+    setLoadedChats(newChats);
     setValue("");
   }
 
   return (
     <div className="Dashboard">
-      {/* <Chats /> */}
-      <div className="messages">
-        {loadedChats.map((chat, index) => (
-          <div key={index} className="message">
-            {chat.message}
-          </div>
-        ))}
-        <form onSubmit={onSendMessage}>
-          <input
-            placeholder="Enter a message"
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="username"
-            value={to}
-            onChange={(e) => setTo(e.target.value)}
-          />
-          <button type="submit">submit</button>
-        </form>
-      </div>
+      <Chats chats={chats} setActiveChat={setActiveChat} />
+      <Messages
+        activeChat={activeChat}
+        loadedChats={loadedChats}
+        onSendMessage={onSendMessage}
+      />
     </div>
   );
 }

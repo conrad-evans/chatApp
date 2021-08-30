@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function Chats({ chats = [] }) {
+function Chats({ chats, setActiveChat }) {
   const [value, setValue] = useState("");
 
   const handleAddContact = async (e) => {
@@ -12,11 +12,14 @@ function Chats({ chats = [] }) {
       console.log(error);
     }
   };
+
   return (
     <div>
       <ul>
         {chats.map((chat, index) => (
-          <li key={index}>{chat.message}</li>
+          <li onClick={() => setActiveChat(chat.from)} key={index}>
+            {chat.message}
+          </li>
         ))}
       </ul>
       <form onSubmit={handleAddContact}>
