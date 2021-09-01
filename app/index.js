@@ -110,14 +110,13 @@ io.on("connection", (socket) => {
   console.log("a user is online");
 
   socket.on("message-sent", function (data) {
-    const { to, from, message } = JSON.parse(data);
+    const { to } = JSON.parse(data);
+    const newData = JSON.parse(data);
 
-    const newData = { message };
-
-    io.emit(to, JSON.stringify(data));
+    io.emit(to, data);
+    console.log(newData);
 
     // io.emit(from, JSON.stringify(newData));
-    console.log("working");
   });
 });
 

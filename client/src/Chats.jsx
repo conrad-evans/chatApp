@@ -27,7 +27,8 @@ function Chats({ chats, chatHeaders, setActiveChat, setTo }) {
             key={index}
             style={{ cursor: "pointer" }}
           >
-            {chat.from}
+            <div>{chat.from}</div>
+            <div>{chat.message}</div>
           </li>
         ))}
       </ul>

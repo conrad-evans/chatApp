@@ -26,6 +26,9 @@ const addChatReverse = (prevData, message) => {
   return newData;
 };
 
-export { addChat, addChatReverse };
+function addMessage(chats, message) {
+  const newChats = chats.filter((chat) => chat.from !== message.from);
+  return [...newChats, message];
+}
 
-const data = [{ from: "jane" }, { from: "john" }, { from: "james" }];
+export { addChat, addChatReverse, addMessage };
