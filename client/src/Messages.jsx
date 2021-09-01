@@ -1,14 +1,16 @@
-import { useState } from "react";
-
-function Messages({ loadedChats, onSendMessage }) {
-  const [value, setValue] = useState("");
+function Messages({ activeChat, to, onSendMessage, value, setValue }) {
   return (
     <div className="Messages">
-      {loadedChats.map((chat, index) => (
-        <div key={index} className="message">
-          {chat.message}
-        </div>
-      ))}
+      {to}
+      {!activeChat ? (
+        <div></div>
+      ) : (
+        activeChat.map((chat, index) => (
+          <div key={index} className="message">
+            {chat.message}
+          </div>
+        ))
+      )}
       <form onSubmit={onSendMessage}>
         <input
           placeholder="Enter a message"

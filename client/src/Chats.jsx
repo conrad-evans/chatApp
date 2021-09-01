@@ -1,13 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 
-function Chats({ chats, setActiveChat }) {
+function Chats({ chats, chatHeaders, setActiveChat, setTo }) {
   const [value, setValue] = useState("");
 
   const handleAddContact = async (e) => {
     e.preventDefault();
     try {
       const data = await axios.post("http://localhost:6000/addContact", {});
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -16,9 +17,17 @@ function Chats({ chats, setActiveChat }) {
   return (
     <div>
       <ul>
-        {chats.map((chat, index) => (
-          <li onClick={() => setActiveChat(chat.from)} key={index}>
-            {chat.message}
+        {chatHeaders.map((chat, index) => (
+          <li
+            className="Chat-Header"
+            onClick={() => {
+              setActiveChat(chats[chat.from]);
+              setTo(chat.from);
+            }}
+            key={index}
+            style={{ cursor: "pointer" }}
+          >
+            {chat.from}
           </li>
         ))}
       </ul>
@@ -28,7 +37,7 @@ function Chats({ chats, setActiveChat }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <button type="submit"></button>
+        <button type="submit">Add contact</button>
       </form>
     </div>
   );

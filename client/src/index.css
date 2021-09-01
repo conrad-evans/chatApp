@@ -29,3 +29,6 @@ code {
   display: flex;
   gap: 3rem;
 }
+.Chat-Header {
+  border-bottom: 2px solid tomato;
+}
