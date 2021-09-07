@@ -33,3 +33,9 @@ code {
   border-bottom: 2px solid tomato;
   cursor: pointer;
 }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

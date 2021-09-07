@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { messageSent, activeChatsSelector } from "./store/entities/chats";
+import {
+  messageSent,
+  activeChatsSelector,
+  sendMessage,
+} from "./store/entities/chats";
 
 function Messages() {
   const [value, setValue] = useState("");
@@ -12,6 +16,7 @@ function Messages() {
     if (value.length > 0) {
       dispatch(messageSent({ message: value }));
       setValue("");
+      sendMessage(JSON.stringify(value));
     }
   };
 

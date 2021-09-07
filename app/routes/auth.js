@@ -26,7 +26,7 @@ router.post(
     const hashPassword = bcrypt.hashSync(password, salt);
     const data = { username, password: hashPassword, contacts: [] };
     saveUser(USERS, username, data);
-    return res.status(201).send(data);
+    return res.status(201).send({ username });
   }
 );
 
@@ -54,7 +54,7 @@ router.post(
       const message = "Incorrect Credentials";
       return res.status(404).send({ errors: { message } });
     }
-    return res.status(200).send({});
+    return res.status(200).send({ username });
   }
 );
 
@@ -80,7 +80,7 @@ router.post(
     console.log("here we are");
 
     if (getDataInArray(user.contacts, contact) === contact) {
-      return res.status(200).send({});
+      return res.status(200).send({ contact });
     }
 
     addDataToArray(user.contacts, contact);

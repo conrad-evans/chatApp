@@ -19,9 +19,10 @@ io.on("connection", (socket) => {
   console.log("a user is online");
 
   socket.on("send-message", function (data) {
-    const { to } = JSON.parse(data);
+    // const { to } = JSON.parse(data);
+    console.log(data);
 
-    io.emit(to, data);
+    // io.emit(to, data);
   });
 });
 

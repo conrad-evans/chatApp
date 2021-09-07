@@ -6,12 +6,12 @@ function Login({ setId }) {
   const [isShowingLogin, setIsShowingLogin] = useState(true);
 
   return (
-    <div>
+    <div className="">
       <h1>Welcome to Chattie</h1>
       {isShowingLogin ? (
-        <LoginModal setId={setId} setShowingLogin={setIsShowingLogin} />
+        <LoginModal setShowingLogin={setIsShowingLogin} />
       ) : (
-        <SignUpModal setId={setId} setShowingLogin={setIsShowingLogin} />
+        <SignUpModal setShowingLogin={setIsShowingLogin} />
       )}
     </div>
   );
