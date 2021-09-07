@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use("/api/v1/user", router);
+app.use("/v1/user", router);
 const server = http.createServer(app);
 
 const io = require("socket.io")(server, {
