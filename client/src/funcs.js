@@ -31,4 +31,28 @@ function addMessage(chats, message) {
   return [...newChats, message];
 }
 
-export { addChat, addChatReverse, addMessage };
+const addActiveChat = (chats, messages) => {
+  if (chats !== undefined) {
+    return [...chats, messages];
+  }
+  return [messages];
+};
+
+const addActiveChatReverse = (chats, message) => {
+  if (chats && chats.length > 0) {
+    const { from } = chats[0];
+    if (from === message.from) {
+      return [message, ...chats];
+    }
+    return chats;
+  }
+  return [];
+};
+
+export {
+  addChat,
+  addChatReverse,
+  addMessage,
+  addActiveChat,
+  addActiveChatReverse,
+};

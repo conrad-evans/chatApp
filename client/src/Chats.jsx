@@ -1,8 +1,11 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { lastChatsSelector } from "./store/entities/chats";
 
-function Chats({ chats, chatHeaders, setActiveChat, setTo }) {
+function Chats() {
   const [value, setValue] = useState("");
+  const lastChats = useSelector((state) => lastChatsSelector(state));
 
   const handleAddContact = async (e) => {
     e.preventDefault();
@@ -17,20 +20,16 @@ function Chats({ chats, chatHeaders, setActiveChat, setTo }) {
   return (
     <div>
       <ul>
-        {chatHeaders.map((chat, index) => (
-          <li
-            className="Chat-Header"
-            onClick={() => {
-              setActiveChat(chats[chat.from]);
-              setTo(chat.from);
-            }}
-            key={index}
-            style={{ cursor: "pointer" }}
-          >
-            <div>{chat.from}</div>
-            <div>{chat.message}</div>
-          </li>
-        ))}
+        {!lastChats ? (
+          <div></div>
+        ) : (
+          lastChats.map((chat, index) => (
+            <li className="Chat-Header" key={index}>
+              <div>{chat.to}</div>
+              <div>{chat.message}</div>
+            </li>
+          ))
+        )}
       </ul>
       <form onSubmit={handleAddContact}>
         <input

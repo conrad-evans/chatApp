@@ -1,17 +1,32 @@
-function Messages({ activeChat, to, onSendMessage, value, setValue }) {
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { messageSent, activeChatsSelector } from "./store/entities/chats";
+
+function Messages() {
+  const [value, setValue] = useState("");
+  const activeChats = useSelector((state) => activeChatsSelector(state));
+  const dispatch = useDispatch();
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (value.length > 0) {
+      dispatch(messageSent({ message: value }));
+      setValue("");
+    }
+  };
+
   return (
     <div className="Messages">
-      {to}
-      {!activeChat ? (
+      {!activeChats ? (
         <div></div>
       ) : (
-        activeChat.map((chat, index) => (
+        activeChats.map((chat, index) => (
           <div key={index} className="message">
             {chat.message}
           </div>
         ))
       )}
-      <form onSubmit={onSendMessage}>
+      <form onSubmit={handleSendMessage}>
         <input
           placeholder="Enter a message"
           type="text"
