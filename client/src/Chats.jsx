@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { lastChatsSelector } from "./store/chatsReducer";
+import { selectLastChats } from "./store/chatsReducer";
 
 function Chats() {
   const [value, setValue] = useState("");
-  const lastChats = useSelector((state) => lastChatsSelector(state));
+  const lastChats = useSelector((state) => selectLastChats(state));
 
   const handleAddContact = async (e) => {
     e.preventDefault();

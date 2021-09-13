@@ -1,22 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  messageSent,
-  activeChatsSelector,
-  sendMessage,
-} from "./store/chatsReducer";
+import { selectActiveChats } from "./store/chatsReducer";
 
 function Messages() {
   const [value, setValue] = useState("");
-  const activeChats = useSelector((state) => activeChatsSelector(state));
+  const activeChats = useSelector((state) => selectActiveChats(state));
   const dispatch = useDispatch();
 
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (value.length > 0) {
-      dispatch(messageSent({ message: value }));
       setValue("");
-      sendMessage(JSON.stringify(value));
     }
   };
 

@@ -42,17 +42,16 @@ export const login = (username, password) =>
     onSuccess: loggedIn.type,
   });
 
-export const signUp = (username, password) => {
+export const signUp = (username, password) =>
   apiCallBegan({
     method: "post",
-    url: "api/v1/user/createUser",
+    url: "/api/v1/user/createUser",
     data: { username, password },
     onSuccess: loggedIn.type,
   });
-};
 
 export const selectLastChats = createSelector(
-  (state) => state.entities.chats.allChats,
+  (state) => state.chats.allChats,
   (chats) => {
     let lastChats = [];
     for (const chat in chats) {
@@ -66,30 +65,13 @@ export const selectLastChats = createSelector(
 );
 
 export const selectActiveChats = createSelector(
-  (state) => state.entities.chats,
-  (chats) => {
-    const { allChats, to } = chats;
-    return allChats[to];
-  }
+  (state) => state.chats.allChats,
+  (state) => state.chats.to,
+  (allChats, to) => allChats[to]
 );
 
 export const sendMessage = (message) => {
   socket.emit("send-message", { message });
 };
-
-export const activeChatsSelector = (state) => {
-  const { allChats, to } = state.entities.chats;
-  return allChats[to];
-};
-
-export function lastChatsSelector(state) {
-  let lastChats = [];
-  const { allChats } = state.entities.chats;
-  for (const chat in allChats) {
-    const chats = allChats[chat];
-    lastChats.push(chats[chats.length - 1]);
-  }
-  return lastChats;
-}
 
 export default slice.reducer;

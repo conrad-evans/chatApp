@@ -19,13 +19,13 @@ const api =
         method,
         data,
       });
-      dispatch(actions.apiCallSuccess(response.data));
+      // dispatch(actions.apiCallSuccess(response.data));
 
       if (onSuccess) {
         dispatch({ type: onSuccess, payload: response.data });
       }
     } catch (error) {
-      dispatch(actions.apiCallFailed(error.message));
+      // dispatch(actions.apiCallFailed(error.message));
 
       if (onError) {
         dispatch({ type: onError, payload: error.message });
