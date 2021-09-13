@@ -1,11 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./reducer";
+import chatsReducer from "./chatsReducer";
 import api from "./middleware/api";
-// import socketMiddleware from "./middleware/socket";
 
 const storeConfig = () => {
   return configureStore({
-    reducer,
+    reducer: { chats: chatsReducer },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([api]),
   });
 };

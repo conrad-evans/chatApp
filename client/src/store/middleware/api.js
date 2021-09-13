@@ -8,6 +8,7 @@ const api =
     if (action.type !== actions.apiCallBegan.type) {
       return next(action);
     }
+
     next(action);
     const { url, method, data, onSuccess, onError } = action.payload;
 
@@ -19,10 +20,16 @@ const api =
         data,
       });
       dispatch(actions.apiCallSuccess(response.data));
-      if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+
+      if (onSuccess) {
+        dispatch({ type: onSuccess, payload: response.data });
+      }
     } catch (error) {
       dispatch(actions.apiCallFailed(error.message));
-      if (onError) dispatch({ type: onError, payload: error.message });
+
+      if (onError) {
+        dispatch({ type: onError, payload: error.message });
+      }
     }
   };
 

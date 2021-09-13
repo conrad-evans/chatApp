@@ -4,7 +4,7 @@ import {
   messageSent,
   activeChatsSelector,
   sendMessage,
-} from "./store/entities/chats";
+} from "./store/chatsReducer";
 
 function Messages() {
   const [value, setValue] = useState("");

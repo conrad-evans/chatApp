@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { login } from "./store/entities/chats";
+import { login } from "./store/chatsReducer";
 import { useDispatch } from "react-redux";
 
 function LoginModal({ setShowingLogin }) {

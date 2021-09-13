@@ -2,7 +2,7 @@ import { useState } from "react";
 import LoginModal from "./LoginModal";
 import SignUpModal from "./SignUpModal";
 
-function Login({ setId }) {
+function Login() {
   const [isShowingLogin, setIsShowingLogin] = useState(true);
 
   return (

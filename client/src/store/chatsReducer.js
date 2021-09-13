@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import io from "socket.io-client";
-import { apiCallBegan } from "../api";
+import { apiCallBegan } from "./api";
 
 const userId = localStorage.getItem("chattie-id");
 
@@ -24,7 +24,7 @@ const slice = createSlice({
         allChats[to] = [chat];
       }
     },
-    userLoggedIn: (chats, action) => {
+    loggedIn: (chats, action) => {
       const { username } = action.payload;
       chats.userId = username;
       localStorage.setItem("chattie-id", username);
@@ -32,17 +32,24 @@ const slice = createSlice({
   },
 });
 
-export const { messageSent, userLoggedIn } = slice.actions;
+export const { messageSent, loggedIn } = slice.actions;
 
 export const login = (username, password) =>
   apiCallBegan({
     method: "post",
-    url: "/api/v1/user/createUser",
+    url: "/api/v1/user/login",
     data: { username, password },
-    onSuccess: userLoggedIn.type,
+    onSuccess: loggedIn.type,
   });
 
-export const signUp = () => {};
+export const signUp = (username, password) => {
+  apiCallBegan({
+    method: "post",
+    url: "api/v1/user/createUser",
+    data: { username, password },
+    onSuccess: loggedIn.type,
+  });
+};
 
 export const selectLastChats = createSelector(
   (state) => state.entities.chats.allChats,

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { lastChatsSelector } from "./store/entities/chats";
+import { lastChatsSelector } from "./store/chatsReducer";
 
 function Chats() {
   const [value, setValue] = useState("");
