@@ -1,7 +1,7 @@
-const express = require("express");
-const router = require("./routes/auth");
 const http = require("http");
-const cors = require("cors");
+const express = require("express");
+
+const router = require("./routes/auth");
 
 const app = express();
 app.use(express.json());

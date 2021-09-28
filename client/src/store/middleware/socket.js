@@ -1,16 +1,24 @@
 import io from "socket.io-client";
+import { socketEmit } from "../socket";
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:3050/api");
 
 const socketMiddleware =
   ({ disaptch }) =>
   (next) =>
   (action) => {
-    if (action.type !== "apiCallBegan") {
+    if (action.type !== socketEmit.type) {
       return next(action);
     }
 
-    const { data, onSuccess, onError } = action.payload;
+    next(action);
+    const { data, onSuccess, socketName } = action.payload;
+
+    socket.emit(socketName, JSON.stringify(data));
+    console.log(data);
+    if (onSuccess) {
+      disaptch({ type: onSuccess, payload: data });
+    }
   };
 
 export default socketMiddleware;

@@ -131,3 +131,6 @@ dmypy.json
 
 # JavaScript
 node_modules/
+
+# design process
+README.DESIGN.md

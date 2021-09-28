@@ -1,20 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import io from "socket.io-client";
 import { apiCallBegan } from "./api";
+import { socketEmit } from "./socket";
 
 const userId = localStorage.getItem("chattie-id");
-
-const socket = io("http://localhost:5000");
 
 const slice = createSlice({
   name: "chats",
   initialState: { allChats: {}, to: "", userId },
   reducers: {
-    messageSent: (chats, action) => {
-      const from = userId;
-      const { to, allChats } = chats;
-      const { message } = action.payload;
+    messageAdded: (chats, action) => {
+      const { allChats } = chats;
+      const { message, to, from } = action.payload;
       const userChats = allChats[to];
       const chat = { message, to, from };
 
@@ -32,7 +29,7 @@ const slice = createSlice({
   },
 });
 
-export const { messageSent, loggedIn } = slice.actions;
+export const { messageAdded, loggedIn } = slice.actions;
 
 export const login = (username, password) =>
   apiCallBegan({
@@ -48,6 +45,13 @@ export const signUp = (username, password) =>
     url: "/api/v1/user/createUser",
     data: { username, password },
     onSuccess: loggedIn.type,
+  });
+
+export const sendMessage = (message, to, from) =>
+  socketEmit({
+    data: { message, to, from },
+    socketName: "send-message",
+    onSuccess: messageAdded.type,
   });
 
 export const selectLastChats = createSelector(
@@ -69,9 +73,5 @@ export const selectActiveChats = createSelector(
   (state) => state.chats.to,
   (allChats, to) => allChats[to]
 );
-
-export const sendMessage = (message) => {
-  socket.emit("send-message", { message });
-};
 
 export default slice.reducer;
