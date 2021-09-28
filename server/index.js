@@ -1,7 +1,11 @@
 const express = require("express");
+const connectToDatabase = require("./setup/database");
+const setUpRoutes = require("./setup/routes");
 
 const app = express();
-app.use(express.json());
+
+connectToDatabase("mongodb://localhost/chatApp");
+setUpRoutes(app);
 
 const PORT = process.env.PORT || 4000;
 
