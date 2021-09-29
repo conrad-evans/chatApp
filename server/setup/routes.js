@@ -1,9 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const authRouter = require("../routes/auth");
 
 function setUpRoutes(app) {
   app.use(express.json());
-  app.use("/api/v1/auth", authRouter);
+  app.use(cors());
+  app.use("/auth", authRouter);
 }
 
 module.exports = setUpRoutes;

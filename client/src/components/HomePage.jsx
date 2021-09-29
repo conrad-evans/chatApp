@@ -1,11 +1,29 @@
 import { useEffect } from "react";
-import Button from "./common/Button";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getGoogleAuthUrl, loginUser } from "../store/reducers/auth";
+
+import ButtonLink from "./common/ButtonLink";
 
 function HomePage() {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+
+  const linkTo = useSelector((state) => state.auth.googleAuthUrl);
+
+  console.log(linkTo);
+
+  useEffect(() => {
+    dispatch(getGoogleAuthUrl());
+    dispatch(loginUser());
+  });
+
   return (
     <div className="container center-content">
-      <Button styleClass="btn" buttonText="login with google" />
+      <ButtonLink
+        linkTo={linkTo}
+        styleClass="btn"
+        buttonText="login with google"
+      />
     </div>
   );
 }

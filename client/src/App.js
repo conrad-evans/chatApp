@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import Dashboard from "./components/Dashboard";
 import HomePage from "./components/HomePage";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const email = useSelector((state) => state.auth.email);
+
   return (
     <div className="default container-fluid">
-      {user ? <Dashboard /> : <HomePage />}
+      {email ? <Dashboard /> : <HomePage />}
     </div>
   );
 }
