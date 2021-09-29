@@ -1,24 +1,28 @@
 function Dashboard() {
   return (
     <div className="container">
-      <header class="header">
-        <h1 class="heading-one">/LOGO/ ChatApp</h1>
+      <header className="header">
+        <h1 className="heading-one">/LOGO/ ChatApp</h1>
       </header>
-      <main class="main">
-        <div class="chats-section">
-          <input type="text" class="input chats-search" placeholder="Search" />
-          <div class="chats"></div>
+      <main className="main">
+        <div className="chats-section">
+          <input
+            type="text"
+            className="input chats-search"
+            placeholder="Search"
+          />
+          <div className="chats"></div>
         </div>
-        <div class="messages-section">
-          <div class="messages-header">Header</div>
-          <div class="messages"></div>
-          <form class="message-form">
+        <div className="messages-section">
+          <div className="messages-header">Header</div>
+          <div className="messages"></div>
+          <form className="message-form">
             <input
               type="text"
               placeholder="Type a message"
-              class="input message-input"
+              className="input message-input"
             />
-            <button class="btn btn-circle">/</button>
+            <button className="btn btn-circle">/</button>
           </form>
         </div>
       </main>

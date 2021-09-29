@@ -17,6 +17,7 @@ const api =
     try {
       const response = await axios.request({
         baseURL: "http://localhost:4000",
+        withCredentials: true,
         url,
         method,
         data,

@@ -14,13 +14,13 @@ router.get("/google/url", (req, res) => {
 });
 
 router.get("/me", (req, res) => {
-  const decoded = req.cookies;
-  // const decoded = jwt.verify(
-  // req.cookies[config.get("cookieName")],
-  // config.get("jwtSecret")
-  // );
+  const authCookie = req.cookies[config.get("cookieName")];
 
-  console.log("decoded", decoded);
+  if (!authCookie) {
+    return;
+  }
+
+  const decoded = jwt.verify(authCookie, config.get("jwtSecret"));
 
   return res.send(decoded);
 });

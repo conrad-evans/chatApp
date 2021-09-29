@@ -10,8 +10,6 @@ function HomePage() {
 
   const linkTo = useSelector((state) => state.auth.googleAuthUrl);
 
-  console.log(linkTo);
-
   useEffect(() => {
     dispatch(getGoogleAuthUrl());
     dispatch(loginUser());
