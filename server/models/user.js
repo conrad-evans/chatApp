@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ContactSchema = require("./contact");
 
 const UserSchema = new mongoose.Schema({
   google_id: {
@@ -32,6 +33,12 @@ const UserSchema = new mongoose.Schema({
   locale: {
     type: String,
     required: true,
+  },
+  contacts: {
+    type: [ContactSchema],
+  },
+  chats: {
+    type: [],
   },
 });
 
