@@ -1,9 +1,9 @@
+import Header from "./Header";
+
 function Dashboard() {
   return (
     <div className="container">
-      <header className="header">
-        <h1 className="heading-one">/LOGO/ ChatApp</h1>
-      </header>
+      <Header />
       <main className="main">
         <div className="chats-section">
           <input

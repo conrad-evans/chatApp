@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const axios = require("axios");
 
 const { getGoogleAuthUrl, getTokens } = require("../services/googleAuth");
+const { saveUser } = require("../models/user");
 
 router = express.Router();
 
@@ -46,7 +47,27 @@ router.get("/google", async (req, res) => {
       }
     );
 
-    const token = await jwt.sign(googleUser.data, config.get("jwtSecret"));
+    let userDetails = {
+      google_id: googleUser.data.id,
+      email: googleUser.data.email,
+      verified_email: googleUser.data.verified,
+      name: googleUser.data.name,
+      given_name: googleUser.data.given_name,
+      family_name: googleUser.data.family_name,
+      picture: googleUser.data.picture,
+      locale: googleUser.data.picture,
+    };
+
+    const userSaved = await saveUser(userDetails);
+
+    if (!userSaved) {
+      return res.status(500).send("Something went Wrong");
+    }
+
+    const token = await jwt.sign(
+      googleUser.data.email,
+      config.get("jwtSecret")
+    );
 
     res.cookie(config.get("cookieName"), token, {
       maxAge: 900000,
