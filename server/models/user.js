@@ -58,4 +58,26 @@ async function saveUser(userDetails) {
   }
 }
 
-module.exports = { saveUser };
+async function checkUserInDatabase(email) {
+  try {
+    const user = await User.findOne({ email });
+
+    if (user) return true;
+
+    return false;
+  } catch (error) {
+    console.log(error.message);
+    return false;
+  }
+}
+
+async function getUser(userDetails) {
+  try {
+    const user = User.findOne(userDetails);
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+}
+
+module.exports = { saveUser, checkUserInDatabase, getUser };
