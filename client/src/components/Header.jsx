@@ -2,7 +2,7 @@ import Icon from "./common/Icon";
 
 import sprites from "../svgs/symbol-defs.svg";
 import { useState } from "react";
-import { saveContact } from "../store/reducers/contacts";
+import { saveContact } from "../store/reducers/chats";
 import { useDispatch } from 'react-redux';
 
 function Header() {

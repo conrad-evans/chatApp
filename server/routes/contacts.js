@@ -5,7 +5,7 @@ const { checkUserInDatabase, getUser } = require("../models/user");
 
 const router = express.Router();
 
-router.get("/contacts", authMiddleware, async () => {
+router.get("/contacts", authMiddleware, async (req, res) => {
   const currentUser = await getUser({ email: req.user });
 
   return res.send(currentUser.contacts);

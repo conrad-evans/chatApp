@@ -208,3 +208,31 @@ body {
   top: 2rem;
   right: 2rem;
 }
+.chat-list {
+  list-style-type: none;
+  padding: 0 2rem;
+}
+.chat-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+.chat-item:not(:last-child) {
+  border-bottom: 1px solid var(--color-5);
+}
+.messages-header img,
+.chat-item img {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+}
+.messages-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.messages-header span {
+  font-size: 2rem;
+}
