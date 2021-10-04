@@ -5,6 +5,12 @@ const { checkUserInDatabase, getUser } = require("../models/user");
 
 const router = express.Router();
 
+router.get("/contacts", authMiddleware, async () => {
+  const currentUser = await getUser({ email: req.user });
+
+  return res.send(currentUser.contacts);
+});
+
 router.post(
   "/contacts",
   authMiddleware,
@@ -16,27 +22,33 @@ router.post(
       return res.status(400).send({ errors: errors.array() });
     }
 
-    const { email } = req.body;
-
     try {
-      const user = checkUserInDatabase(email);
+      const { email } = req.body;
+      const user = await checkUserInDatabase(email);
 
       if (!user) {
         return res.status(404).send({ errors: "User not found" });
       }
 
-      const email = req.user;        
-      const currentUser = getUser({email})
+      const currentUser = await getUser({ email: req.user });
 
-      currentUser.contacts.push({email: user.email})
+      currentUser.contacts.push({
+        email: user.email,
+        picture: user.picture,
+        name: user.name,
+      });
 
-      await currentUser.save()
+      await currentUser.save();
 
-      
+      const { name } = user;
 
-      const 
-    } catch (error) {}
+      return res.status(201).send({ email, name });
+    } catch (error) {
+      console.log(error.message);
 
-    //
+      return res.status(500).send("Something went wrong on our end");
+    }
   }
 );
+
+module.exports = router;

@@ -2,9 +2,20 @@ import Icon from "./common/Icon";
 
 import sprites from "../svgs/symbol-defs.svg";
 import { useState } from "react";
+import { saveContact } from "../store/reducers/contacts";
+import { useDispatch } from 'react-redux';
 
 function Header() {
-  const [toggleModal, setToggleModal] = useState(true);
+  const [toggleModal, setToggleModal] = useState(false);
+  const [value, setValue] = useState("");
+
+  const dispatch = useDispatch()
+
+  // function validateEmail(email) {
+  //   const re =
+  //     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return re.test(email);
+  // }
 
   const showModal = () => {
     setToggleModal(true);
@@ -16,6 +27,10 @@ function Header() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (value) {
+      dispatch(saveContact(value));
+      setValue("");
+    }
   };
 
   return (
@@ -33,10 +48,18 @@ function Header() {
       {toggleModal && (
         <div className="modal">
           <form className="modal-content" onSubmit={handleSubmit}>
-            <input type="text" placeholder="email@gmail.com" />
-            <button onClick={closeModal} type="submit">
-              Add Contact
-            </button>
+            <Icon
+              handleIconClick={closeModal}
+              styleClass="close-btn logo-icon"
+              iconUrl={`${sprites}#icon-settings`}
+            />
+            <input
+              type="text"
+              placeholder="email@gmail.com"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            />
+            <button type="submit">Add Contact</button>
           </form>
         </div>
       )}

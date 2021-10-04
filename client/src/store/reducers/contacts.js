@@ -7,24 +7,34 @@ const slice = createSlice({
   initialState: [],
 
   reducers: {
-    addContact: (contacts, action) => {
-      const { email, name } = action.payload;
+    addContacts: (contacts, action) => {
+      contacts.push(action.payload);
+    },
+    contactAdded: (contacts, action) => {
+      const { email, name, picture } = action.payload;
 
-      const contact = { email, name };
+      const contact = { email, name, picture };
 
       contacts.push(contact);
     },
   },
 });
 
-const { addContact } = slice.actions;
+const { contactAdded, addContacts } = slice.actions;
 
 export const saveContact = (email) =>
   apiCallBegan({
     data: { email },
-    url: "/api/contacts",
+    url: "/api/v1/contacts",
+    method: "post",
+    onSuccess: contactAdded.type,
+  });
+
+export const getAllContacts = () =>
+  apiCallBegan({
+    url: "/api/v1/contacts",
     method: "get",
-    onSuccess: addContact.type,
+    onSuccess: addContacts.type,
   });
 
 export default slice.reducer;

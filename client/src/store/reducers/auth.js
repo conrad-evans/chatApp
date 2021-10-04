@@ -16,6 +16,7 @@ const slice = createSlice({
     userLoggedIn: (auth, action) => {
       const { email } = action.payload;
       auth.email = email;
+      auth.googleAuthUrl = null;
     },
   },
 });

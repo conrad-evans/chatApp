@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className="default container-fluid">
-      {!email ? <Dashboard /> : <HomePage />}
+      {email ? <Dashboard /> : <HomePage />}
     </div>
   );
 }

@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   name: {
-    type: Boolean,
+    type: String,
     required: true,
   },
   given_name: {
@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   picture: {
-    type: Boolean,
+    type: String,
     required: true,
   },
   locale: {
@@ -62,18 +62,19 @@ async function checkUserInDatabase(email) {
   try {
     const user = await User.findOne({ email });
 
-    if (user) return true;
+    if (user) return user;
 
-    return false;
+    return null;
   } catch (error) {
     console.log(error.message);
-    return false;
+    return null;
   }
 }
 
 async function getUser(userDetails) {
   try {
     const user = User.findOne(userDetails);
+    return user;
   } catch (error) {
     console.log(error.message);
     return null;

@@ -3,6 +3,7 @@ const config = require("config");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRouter = require("../routes/auth");
+const contactRouter = require("../routes/contacts");
 
 function setUpRoutes(app) {
   app.use(express.json());
@@ -14,6 +15,7 @@ function setUpRoutes(app) {
   );
   app.use(cookieParser());
   app.use("/auth", authRouter);
+  app.use("/api/v1", contactRouter);
 }
 
 module.exports = setUpRoutes;
