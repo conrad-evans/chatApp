@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentChat, sendMessage } from "../store/reducers/chats";
+import {
+  getCurrentChat,
+  receivedChat,
+  sendMessage,
+} from "../store/reducers/chats";
 import socket from "../store/socket";
 
 function Messages() {
@@ -15,10 +19,11 @@ function Messages() {
   useEffect(() => {
     socket.on(me, (data) => {
       const chat = JSON.parse(data);
-
-      // dispatch(chat);
+      const { from, to, message } = chat;
+      console.log(chat);
+      dispatch(receivedChat(from, to, message));
     });
-  });
+  },[me, dispatch]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();

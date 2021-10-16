@@ -114,6 +114,7 @@ body {
 }
 .messages {
   flex: 1 0 0;
+  overflow-y: scroll;
 }
 .message-form {
   display: flex;
