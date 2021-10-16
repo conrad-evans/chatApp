@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../api";
 import { createSelector } from "reselect";
+import { socketSendMessage } from "../middleware/socket";
 
 const slice = createSlice({
   name: "chats",
@@ -23,10 +24,47 @@ const slice = createSlice({
 
       chats.activeChat = { email, picture, name };
     },
+    chatSent: (chats, action) => {
+      const { message, to, from } = action.payload;
+
+      const messages = chats.chats[to];
+      if (messages) {
+        messages.push({ message, to, from });
+      } else {
+        chats.chats[to] = [];
+        chats.chats[to].push({ message, to, from });
+      }
+    },
+    chatReceived: (chats, action) => {
+      const { message, to, from } = action.payload;
+
+      const messages = chats.chats[from];
+
+      if (messages) {
+        messages.push({ message, to, from });
+      } else {
+        chats.chats[from] = [];
+        chats.chats[from].push({ message, to, from });
+      }
+    },
   },
 });
 
-const { contactAdded, addContacts, activeChatPicked } = slice.actions;
+const { contactAdded, addContacts, activeChatPicked, chatSent, chatReceived } =
+  slice.actions;
+
+export const sendMessage = (from, to, message) =>
+  socketSendMessage({
+    from,
+    to,
+    message,
+    onSuccess: chatSent.type,
+  });
+
+export const receivedChat = (from, to, message) => ({
+  type: chatReceived.type,
+  payload: { from, to, message },
+});
 
 export const pickChat = (email, picture, name) => ({
   type: activeChatPicked.type,
@@ -51,6 +89,12 @@ export const getAllContacts = () =>
 export const showAllContacts = createSelector(
   (state) => state.chats.contacts,
   (contacts) => contacts
+);
+
+export const getCurrentChat = createSelector(
+  (state) => state.chats.chats,
+  (state) => state.chats.activeChat.email,
+  (chats, email) => chats[email]
 );
 
 export default slice.reducer;
