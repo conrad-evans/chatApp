@@ -6,6 +6,7 @@ import {
   sendMessage,
 } from "../store/reducers/chats";
 import socket from "../store/socket";
+import Message from "./Message";
 
 function Messages() {
   const [value, setValue] = useState("");
@@ -20,10 +21,9 @@ function Messages() {
     socket.on(me, (data) => {
       const chat = JSON.parse(data);
       const { from, to, message } = chat;
-      console.log(chat);
       dispatch(receivedChat(from, to, message));
     });
-  },[me, dispatch]);
+  }, [me, dispatch]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ function Messages() {
       </div>
       <div className="messages">
         {chats ? (
-          chats.map((chat) => <li>{chat.message}</li>)
+          chats.map((chat, idx) => <Message chat={chat} idx={idx} />)
         ) : (
           <h1>No messages</h1>
         )}

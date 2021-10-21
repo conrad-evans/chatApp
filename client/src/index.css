@@ -115,6 +115,14 @@ body {
 .messages {
   flex: 1 0 0;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+.message_1 {
+  align-self: flex-start;
+}
+.message_2 {
+  align-self: flex-end;
 }
 .message-form {
   display: flex;
