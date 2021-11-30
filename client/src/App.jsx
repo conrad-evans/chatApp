@@ -1,8 +1,15 @@
+import { Container, HStack } from "@chakra-ui/react";
+import Chats from "./components/Chats";
+import Messages from "./components/Messages";
+
 function App() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <Container maxW="container.xl">
+      <HStack spacing={4}>
+        <Chats />
+        <Messages />
+      </HStack>
+    </Container>
   );
 }
 
