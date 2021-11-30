@@ -1,23 +1,11 @@
-version: "3.8"
+version: '3'
 services:
-  mongo:
-    image: mongo
-    restart: always
   client:
     build:
-      dockerfile: Dockerfile.dev
       context: ./client
+      dockerfile: ./Dockerfile.dev
     ports:
       - "3000:3000"
     volumes:
-      - .client/node_modules
-      - ./client:/app/
-  server:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./server
-    ports:
-      - "4000:4000"
-    volumes:
-      - .server/node_modules
-      - ./server:/app/
+      - /client/node_modules
+      - ./client:/app

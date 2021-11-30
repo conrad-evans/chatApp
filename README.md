@@ -1,2 +1,3 @@
-# chatApp
-chatApp is an a real time chat application
+# Chat Application
+
+A real time chat application
