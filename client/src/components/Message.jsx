@@ -20,7 +20,7 @@ function Message({ alignSelf }) {
   return (
     <VStack
       alignSelf={alignSelf}
-      maxW="90%"
+      maxW="70%"
       alignItems="start"
       spacing={0}
       bgColor={alignSelf ? "#bb86fc" : "#03dac6"}

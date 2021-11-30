@@ -3,7 +3,7 @@ import Chat from "./Chat";
 
 function Chats() {
   return (
-    <VStack width="40%">
+    <VStack width="40%" spacing={3}>
       <Chat />
       <Chat />
       <Chat />
