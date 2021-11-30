@@ -1,6 +1,6 @@
 # Chat application.
 
-This is plan for a chat application, that I have been putting off for sometime. But I think it'll will be a great way for me to get into learning websockets using the **socket.io** framework.
+This is plan for a chat application, that I have been putting off for sometime. But I think it'll will be a great way for me to get into learning web sockets using the **socket.io** framework.
 
 # Project Features.
 
