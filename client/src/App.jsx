@@ -1,15 +1,16 @@
-import { Container, HStack } from "@chakra-ui/react";
-import Chats from "./components/Chats";
-import Messages from "./components/Messages";
+import { Box, Flex, Divider } from "@chakra-ui/react";
+import MessagesContainer from "./components/MessagesContainer";
+import SideTab from "./components/SideTab";
 
 function App() {
   return (
-    <Container maxW="container.xl">
-      <HStack spacing={4}>
-        <Chats />
-        <Messages />
-      </HStack>
-    </Container>
+    <Box width="100%" maxHeight="100vh" bg="gray.900" overflow="hidden">
+      <Flex maxWidth="1400px" mx="auto">
+        <SideTab />
+        <Divider orientation="vertical" />
+        <MessagesContainer />
+      </Flex>
+    </Box>
   );
 }
 
