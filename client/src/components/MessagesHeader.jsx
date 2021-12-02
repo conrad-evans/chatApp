@@ -1,6 +1,6 @@
-import { Box, Stack, Flex, Text, IconButton } from "@chakra-ui/react";
-import { IoMdMore, IoMdSearch } from "react-icons/io";
+import { Box, Stack, Flex, Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/avatar";
+import MessagesHeaderIcons from "./MessagesHeaderIcons";
 
 function MessagesHeader() {
   return (
@@ -21,22 +21,7 @@ function MessagesHeader() {
           </Text>
         </Box>
       </Stack>
-      <Stack isInline>
-        <IconButton
-          icon={<IoMdSearch size={"24px"} />}
-          color="gray.100"
-          variant="ghost"
-          borderRadius="full"
-          _hover={{ backgroundColor: "#718096" }}
-        />
-        <IconButton
-          icon={<IoMdMore size={"24px"} />}
-          color="gray.100"
-          variant="ghost"
-          borderRadius="full"
-          _hover={{ backgroundColor: "#718096" }}
-        />
-      </Stack>
+      <MessagesHeaderIcons />
     </Flex>
   );
 }

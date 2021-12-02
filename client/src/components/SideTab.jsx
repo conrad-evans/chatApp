@@ -1,6 +1,5 @@
 import { Flex } from "@chakra-ui/react";
 import ChatContainer from "./ChatContainer";
-import Contacts from "./Contacts";
 import ContactsContainer from "./ContactsContainer";
 import Profile from "./Profile";
 

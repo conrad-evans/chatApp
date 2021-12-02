@@ -4,7 +4,7 @@ import ProfileHeader from "./ProfileHeader";
 
 function Profile() {
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" height="100vh">
       <ProfileHeader />
       <ProfileBody />
     </Flex>
