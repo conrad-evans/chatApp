@@ -1,31 +1,32 @@
 import { useState } from "react";
-import { VStack, Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
 
 function Message({ alignSelf }) {
-  const [show, setShow] = useState(false);
+  const [isShowingText, setIsShowingText] = useState(false);
 
-  const showMoreText = () => {
-    setShow(true);
-  };
-
-  const showLessText = () => {
-    setShow(false);
-  };
-
-  let lines = 2;
-  if (show) {
+  let lines = 17;
+  if (isShowingText) {
     lines = null;
   }
 
+  const showMoreText = () => {
+    setIsShowingText(true);
+  };
+
+  const showLessText = () => {
+    setIsShowingText(false);
+  };
+
   return (
-    <VStack
+    <Stack
       alignSelf={alignSelf}
       maxW="70%"
       alignItems="start"
       spacing={0}
-      bgColor={alignSelf ? "#bb86fc" : "#03dac6"}
+      bgColor={alignSelf ? "blue.600" : "gray.700"}
       p={3}
       borderRadius={10}
+      boxShadow="xl"
     >
       <Text
         noOfLines={lines}
@@ -38,20 +39,19 @@ function Message({ alignSelf }) {
         asperiores laborum porro delectus nesciunt sequi aut non dolorem quam
         beatae!
       </Text>
-      {lines && (
-        <Text
-          fontSize={15}
-          fontWeight="bold"
-          color="gray.200"
-          onClick={showMoreText}
-        >
-          show more
-        </Text>
-      )}
-      <Text alignSelf="flex-end" fontSize={13} color="gray.200">
+      <Text
+        fontSize={15}
+        fontWeight="bold"
+        color="gray.100"
+        onClick={showMoreText}
+        cursor="pointer"
+      >
+        {isShowingText ? "" : "show more"}
+      </Text>
+      <Text alignSelf="flex-end" fontSize={13} color="gray.400">
         12:00
       </Text>
-    </VStack>
+    </Stack>
   );
 }
 
