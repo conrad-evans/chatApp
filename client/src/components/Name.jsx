@@ -1,15 +1,18 @@
 import { Text, IconButton, Input, Flex, Stack } from "@chakra-ui/react";
 import { MdModeEdit, MdDone } from "react-icons/md";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Name() {
+  const { name } = useSelector((state) => state.auth);
+
   const [state, setState] = useState({
-    name: "",
+    name,
     editingName: false,
     error: false,
   });
 
-  const { editingName, name } = state;
+  const { editingName } = state;
 
   const handleOnChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -17,7 +20,7 @@ function Name() {
 
   const submitName = (e) => {
     e.preventDefault();
-    if (!name) {
+    if (!state.name) {
       setState({ ...state, error: true });
       return;
     }
@@ -38,7 +41,7 @@ function Name() {
           <>
             <Input
               name="name"
-              value={name}
+              value={state.name}
               onChange={handleOnChange}
               variant="flushed"
               color="white"
@@ -55,7 +58,7 @@ function Name() {
           </>
         ) : (
           <>
-            <Text color="gray.100">{name}</Text>
+            <Text color="gray.100">{state.name}</Text>
             <IconButton
               onClick={toggleEditingName}
               icon={<MdModeEdit size="24px" />}

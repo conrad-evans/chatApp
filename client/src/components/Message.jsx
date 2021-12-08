@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { Stack, Text } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
-function Message({ alignSelf }) {
+function Message({ chat }) {
   const [isShowingText, setIsShowingText] = useState(false);
+  const email = useSelector((state) => state.auth.email);
+
+  const { message, from, time } = chat;
+
+  let alignSelf = false;
+  if (email === from) {
+    alignSelf = true;
+  }
 
   let lines = 17;
   if (isShowingText) {
@@ -19,7 +28,7 @@ function Message({ alignSelf }) {
 
   return (
     <Stack
-      alignSelf={alignSelf}
+      alignSelf={alignSelf ? "end" : "start"}
       maxW="70%"
       alignItems="start"
       spacing={0}
@@ -34,10 +43,7 @@ function Message({ alignSelf }) {
         fontSize={15}
         color="gray.200"
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque dolorum
-        nihil excepturi accusantium, recusandae optio ut esse, accusamus vel
-        asperiores laborum porro delectus nesciunt sequi aut non dolorem quam
-        beatae!
+        {message}
       </Text>
       <Text
         fontSize={15}
@@ -49,7 +55,7 @@ function Message({ alignSelf }) {
         {isShowingText ? "" : "show more"}
       </Text>
       <Text alignSelf="flex-end" fontSize={13} color="gray.400">
-        12:00
+        {time ? time : "12:00"}
       </Text>
     </Stack>
   );

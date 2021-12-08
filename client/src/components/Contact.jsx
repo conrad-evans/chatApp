@@ -1,7 +1,12 @@
 import { Stack, Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/avatar";
+import { useDispatch } from "react-redux";
+import { pickChat } from "../store/reducers/chats";
 
-function Contact() {
+function Contact({ contact }) {
+  const dispatch = useDispatch();
+  const { email, picture, name, about } = contact;
+
   return (
     <Stack
       isInline
@@ -10,16 +15,15 @@ function Contact() {
       cursor="pointer"
       align="center"
       _hover={{ backgroundColor: "#2d3748" }}
+      onClick={(e) => dispatch(pickChat(email, picture, name))}
     >
-      <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+      <Avatar name={name} src={picture} />
       <Stack spacing={1}>
         <Text fontSize={16} color="gray.200">
-          Dan Abrahmov
+          {name}
         </Text>
         <Text noOfLines={1} fontSize={15} color="gray">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam
-          magni maxime sit, laborum sunt culpa, a inventore id amet eius maiores
-          sint harum illum voluptate consectetur saepe commodi dicta incidunt.
+          {about}
         </Text>
       </Stack>
     </Stack>

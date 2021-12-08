@@ -1,8 +1,13 @@
 import { Flex } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/avatar";
+import { useSelector, useDispatch } from "react-redux";
 import ChatsTopBarIcons from "./ChatsTopBarIcons";
+import { profileOpened } from "../store/reducers/ui";
 
 function ChatsTopBar() {
+  const dispatch = useDispatch();
+  const { picture, name } = useSelector((state) => state.auth);
+
   return (
     <Flex
       alignItems="center"
@@ -12,8 +17,9 @@ function ChatsTopBar() {
     >
       <Avatar
         cursor="pointer"
-        name="Sage Adebayo"
-        src="https://bit.ly/sage-adebayo"
+        name={name}
+        src={picture}
+        onClick={() => dispatch(profileOpened())}
       />
       <ChatsTopBarIcons />
     </Flex>

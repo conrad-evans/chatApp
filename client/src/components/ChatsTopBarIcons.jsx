@@ -9,8 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { IoMdMore, IoMdSettings } from "react-icons/io";
 import { RiChatNewLine, RiLogoutBoxLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { contactsOpened } from "../store/reducers/ui";
 
 function ChatsTopBarIcons() {
+  const dispatch = useDispatch();
+
   return (
     <Stack isInline>
       <Tooltip label="New chat">
@@ -20,6 +24,7 @@ function ChatsTopBarIcons() {
           variant="ghost"
           borderRadius="full"
           _hover={{ backgroundColor: "#718096" }}
+          onClick={() => dispatch(contactsOpened())}
         />
       </Tooltip>
       <Menu autoSelect={false}>

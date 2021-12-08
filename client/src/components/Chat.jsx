@@ -1,7 +1,12 @@
 import { Text, Flex, Stack } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/avatar";
+import { useDispatch } from "react-redux";
+import { pickChat } from "../store/reducers/chats";
 
-function Chat() {
+function Chat({ chat }) {
+  const dispatch = useDispatch();
+  const { email, picture, name, message } = chat;
+
   return (
     <Flex
       justifyContent="space-between"
@@ -9,18 +14,16 @@ function Chat() {
       cursor="pointer"
       padding={3}
       _hover={{ backgroundColor: "#2d3748" }}
+      onClick={(e) => dispatch(pickChat(email, picture, name))}
     >
       <Stack isInline align="center" spacing={4}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+        <Avatar name={name} src={picture} />
         <Stack spacing={1}>
           <Text fontSize={16} color="gray.200">
-            Dan Abrahmov
+            {name}
           </Text>
           <Text noOfLines={1} fontSize={15} color="gray">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam
-            magni maxime sit, laborum sunt culpa, a inventore id amet eius
-            maiores sint harum illum voluptate consectetur saepe commodi dicta
-            incidunt.
+            {message}
           </Text>
         </Stack>
       </Stack>

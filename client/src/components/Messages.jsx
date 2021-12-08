@@ -1,8 +1,12 @@
-import { Stack } from "@chakra-ui/react";
+import { Stack, Box } from "@chakra-ui/react";
 import { scrollBar } from "../styles/customStyles";
+import { useSelector } from "react-redux";
+import { getCurrentChat } from "../store/reducers/chats";
 import Message from "./Message";
 
 function Messages() {
+  const chats = useSelector((state) => getCurrentChat(state));
+
   return (
     <Stack
       spacing={1}
@@ -13,15 +17,11 @@ function Messages() {
       bgColor="gray.800"
       css={scrollBar}
     >
-      <Message />
-      <Message alignSelf="end" />
-      <Message alignSelf="end" />
-      <Message />
-      <Message alignSelf="end" />
-      <Message alignSelf="end" />
-      <Message />
-      <Message />
-      <Message alignSelf="end" />
+      {chats ? (
+        chats.map((chat, index) => <Message key={index} chat={chat} />)
+      ) : (
+        <Box></Box>
+      )}
     </Stack>
   );
 }
