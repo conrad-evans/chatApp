@@ -14,8 +14,8 @@ function setUpRoutes(app) {
     })
   );
   app.use(cookieParser());
+  app.use("/auth/contacts", contactRouter);
   app.use("/auth", authRouter);
-  app.use("/v1/contacts", contactRouter);
 }
 
 module.exports = setUpRoutes;

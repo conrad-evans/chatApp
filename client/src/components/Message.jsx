@@ -52,7 +52,7 @@ function Message({ chat }) {
         onClick={showMoreText}
         cursor="pointer"
       >
-        {isShowingText ? "" : "show more"}
+        {/* {isShowingText ? "" : "show more"} */}
       </Text>
       <Text alignSelf="flex-end" fontSize={13} color="gray.400">
         {time ? time : "12:00"}

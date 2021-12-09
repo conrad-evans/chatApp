@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { saveContact } from "../store/reducers/chats";
+import { useDispatch } from "react-redux";
 
 function AddContactModal({ isOpen, onClose }) {
   const [state, setState] = useState({
@@ -19,6 +20,7 @@ function AddContactModal({ isOpen, onClose }) {
   });
 
   const { contact, isError } = state;
+  const dispatch = useDispatch();
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ function AddContactModal({ isOpen, onClose }) {
       setState({ ...state, isError: true });
       return;
     }
-    saveContact(contact);
+    dispatch(saveContact(contact));
     onClose();
   };
 

@@ -77,14 +77,14 @@ export const pickChat = (email, picture, name) => ({
 export const saveContact = (email) =>
   apiCallBegan({
     data: { email },
-    url: "/api/v1/contacts/",
+    url: "/auth/contacts/",
     method: "post",
     onSuccess: contactAdded.type,
   });
 
 export const getAllContacts = () =>
   apiCallBegan({
-    url: "/api/v1/contacts/",
+    url: "/auth/contacts/",
     method: "get",
     onSuccess: addContacts.type,
   });
