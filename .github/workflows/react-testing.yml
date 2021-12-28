@@ -2,7 +2,8 @@ name: Testing React Application
 on:
   pull_request:
     branches:
-      - master
+      - "main"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,10 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Build React Image for running tests
         run: docker build --tag ${{secrets.DOCKER_HUB_USERNAME}}/chat-app-client -f ./client/Dockerfile.dev ./client
-        
+
       - name: Run React Tests
         run: docker run -e CI=true ${{secrets.DOCKER_HUB_USERNAME}}/chat-app-client npm test
-    
