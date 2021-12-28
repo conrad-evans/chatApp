@@ -1,0 +1,41 @@
+version: '3.0'
+services:
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+  mongo:
+    image: mongo
+    restart: always
+  backend:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    links:
+     - mongo
+    depends_on:
+      - mongo
+      - nginx
+  socket:
+    build:
+      context: ./socket
+      dockerfile: ./Dockerfile
+    links:
+      - mongo
+    depends_on:
+      - mongo
+      - nginx
+      - backend
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    links:
+      - backend
+    depends_on:
+      - backend
+      - socket
+      - nginx

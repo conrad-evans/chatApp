@@ -1,0 +1,41 @@
+version: '3.0'
+services:
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:80"
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - /mongodb/database:/data/db
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - /client/node_modules
+      - ./client:/app
+    links:
+      - mongo
+  backend:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - /server/node_modules
+      - ./server:/app
+    links:
+     - mongo
+  socket:
+    build:
+      context: ./socket
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - /socket/node_modules
+      - ./socket:/app
+    links:
+      - mongo
